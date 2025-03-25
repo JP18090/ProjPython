@@ -1,6 +1,4 @@
-# José Pedro Bitetti Tkatchuk 
-# Magno Rogerio de Oliveira Junior
-# Andreas Caycedo Martinez
+
 tcg = 15.00 # Tarifa carro grande
 hfcg = 2.00 # Hora fixa carro grande
 hacg = 1.50 # Horas adicionais carro grande
