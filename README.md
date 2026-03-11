@@ -40,6 +40,11 @@ Se um carro pequeno permaneceu por 4 horas e o pagamento for via PIX:
 4. Escolha a forma de pagamento.
 5. O programa calcula e exibe o valor final.
 
+## Video de demonstração 
+#### Obs: video foi feito para demonstrar o funcionamento, em vista que, o banco de dados já não esta mais disponivel
+
+https://github.com/user-attachments/assets/5d7d1731-72b5-4859-9fe3-4e79a31f95e9
+
 ## Melhorias Futuras
 - Implementação de um banco de dados para armazenar histórico de veículos.
 - Interface gráfica para facilitar a interação.
