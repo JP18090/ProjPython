@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Estacionamento</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚗 Sistema de Estacionamento</h1>
+        </header>
+
+        <main id="main-content">
+            <!-- Menu Principal -->
+            <div id="menu-principal" class="section">
+                <!-- Menu Cards -->
+                <div class="menu-grid">
+                    <div class="menu-card blue" onclick="mostrarSecao('tarifas')">
+                        <div class="menu-icon">💲</div>
+                        <div class="menu-content">
+                            <h3>Gerenciar Tarifas</h3>
+                            <p>Configurar preços por tipo</p>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card green" onclick="mostrarSecao('entrada')">
+                        <div class="menu-icon">➕</div>
+                        <div class="menu-content">
+                            <h3>Registrar Entrada</h3>
+                            <p>Cadastrar novo veículo</p>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card red" onclick="mostrarSecao('saida')">
+                        <div class="menu-icon">➖</div>
+                        <div class="menu-content">
+                            <h3>Registrar Saída</h3>
+                            <p>Processar pagamento</p>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card purple" onclick="mostrarSecao('relatorios')">
+                        <div class="menu-icon">📊</div>
+                        <div class="menu-content">
+                            <h3>Relatórios</h3>
+                            <p>Visualizar estatísticas</p>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card yellow" onclick="mostrarSecao('veiculos')">
+                        <div class="menu-icon">📋</div>
+                        <div class="menu-content">
+                            <h3>Veículos Ativos</h3>
+                            <p>Ver veículos no pátio</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">🚗</div>
+                        <div class="stat-info">
+                            <div class="stat-label">Veículos Hoje</div>
+                            <div class="stat-value" id="total-vehicles">0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon green-icon">💲</div>
+                        <div class="stat-info">
+                            <div class="stat-label">Arrecadação</div>
+                            <div class="stat-value green-text" id="total-revenue">R$ 0,00</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">🚗</div>
+                        <div class="stat-info">
+                            <div class="stat-label">Ocupação Atual</div>
+                            <div class="stat-value yellow-text" id="active-vehicles">0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-indicator"></div>
+                        <div class="stat-info">
+                            <div class="stat-label">Status</div>
+                            <div class="stat-value green-text">Banco de dados</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gerenciar Tarifas -->
+            <div id="tarifas" class="section hidden">
+                <h2>💰 Gerenciar Tarifas</h2>
+                <div class="tariff-grid">
+                    <div class="tariff-card">
+                        <h3>Carro Grande</h3>
+                        <label>Tarifa Base (R$):</label>
+                        <input type="number" id="carro-grande-base" step="0.01">
+                        <label>Horas Fixas:</label>
+                        <input type="number" id="carro-grande-horas" step="0.01">
+                        <label>Hora Adicional (R$):</label>
+                        <input type="number" id="carro-grande-adicional" step="0.01">
+                    </div>
+                    <div class="tariff-card">
+                        <h3>Carro Pequeno</h3>
+                        <label>Tarifa Base (R$):</label>
+                        <input type="number" id="carro-pequeno-base" step="0.01">
+                        <label>Horas Fixas:</label>
+                        <input type="number" id="carro-pequeno-horas" step="0.01">
+                        <label>Hora Adicional (R$):</label>
+                        <input type="number" id="carro-pequeno-adicional" step="0.01">
+                    </div>
+                    <div class="tariff-card">
+                        <h3>Moto</h3>
+                        <label>Tarifa Base (R$):</label>
+                        <input type="number" id="moto-base" step="0.01">
+                        <label>Horas Fixas:</label>
+                        <input type="number" id="moto-horas" step="0.01">
+                        <label>Hora Adicional (R$):</label>
+                        <input type="number" id="moto-adicional" step="0.01">
+                    </div>
+                </div>
+                <div class="section-buttons">
+                    <button onclick="salvarTarifas()" class="btn btn-green">💾 Salvar Tarifas</button>
+                    <button onclick="voltarMenu()" class="btn btn-gray">⬅ Voltar</button>
+                </div>
+            </div>
+
+            <!-- Registrar Entrada -->
+            <div id="entrada" class="section hidden">
+                <h2>➕ Registrar Entrada de Veículo</h2>
+                <form id="form-entrada" class="form-grid" onsubmit="event.preventDefault(); registrarEntrada();">
+                    <div>
+                        <label>Tipo de Veículo:</label>
+                        <select id="tipo-veiculo" required>
+                            <option value="">Selecione...</option>
+                            <option value="carroGrande">Carro Grande</option>
+                            <option value="carroPequeno">Carro Pequeno</option>
+                            <option value="moto">Moto</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Placa:</label>
+                        <input type="text" id="placa" placeholder="ABC-1234" required>
+                    </div>
+                    <div>
+                        <label>Marca:</label>
+                        <input type="text" id="marca" required>
+                    </div>
+                    <div>
+                        <label>Modelo:</label>
+                        <input type="text" id="modelo" required>
+                    </div>
+                    <div>
+                        <label>Ano:</label>
+                        <input type="number" id="ano" min="1900" max="2030" required>
+                    </div>
+                    <div>
+                        <label>Cor:</label>
+                        <input type="text" id="cor" required>
+                    </div>
+                    <div class="section-buttons">
+                        <button type="submit" class="btn btn-green">➕ Registrar Entrada</button>
+                        <button type="button" onclick="voltarMenu()" class="btn btn-gray">⬅ Voltar</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Registrar Saída -->
+            <div id="saida" class="section hidden">
+                <h2>➖ Registrar Saída de Veículo</h2>
+                <div class="search-section">
+                    <label>Buscar por Placa:</label>
+                    <div class="search-group">
+                        <input type="text" id="busca-placa" placeholder="Digite a placa...">
+                        <button type="button" onclick="buscarVeiculo()" class="btn btn-blue">🔍 Buscar</button>
+                    </div>
+                </div>
+                
+                <div id="veiculo-encontrado" class="hidden">
+                    <div class="vehicle-info">
+                        <h3>Veículo Encontrado</h3>
+                        <div id="detalhes-veiculo"></div>
+                    </div>
+                    
+                    <div class="payment-section">
+                        <div>
+                            <label>Hora de Saída:</label>
+                            <input type="time" id="hora-saida">
+                        </div>
+                        <div>
+                            <label>Forma de Pagamento:</label>
+                            <select id="forma-pagamento">
+                                <option value="cartao">Cartão</option>
+                                <option value="pix">PIX (5% desconto)</option>
+                                <option value="dinheiro">Dinheiro</option>
+                            </select>
+                        </div>
+                        <button type="button" onclick="calcularValor()" class="btn btn-blue">🧮 Calcular Valor</button>
+                    </div>
+                    
+                    <div id="resumo-pagamento" class="hidden">
+                        <h3>Resumo do Pagamento</h3>
+                        <div id="detalhes-pagamento"></div>
+                        <button type="button" onclick="confirmarSaida()" class="btn btn-green">✅ Confirmar Saída</button>
+                    </div>
+                </div>
+                
+                <div class="section-buttons">
+                    <button type="button" onclick="voltarMenu()" class="btn btn-gray">⬅ Voltar</button>
+                </div>
+            </div>
+
+            <!-- Relatórios -->
+            <div id="relatorios" class="section hidden">
+                <h2>📊 Relatórios</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Veículos</h3>
+                        <span id="rel-total-vehicles">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Arrecadação</h3>
+                        <span id="rel-total-revenue">R$ 0,00</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Veículos Ativos</h3>
+                        <span id="rel-active-vehicles">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Ticket Médio</h3>
+                        <span id="rel-ticket-medio">R$ 0,00</span>
+                    </div>
+                </div>
+                
+                <div class="reports-grid">
+                    <div class="report-section">
+                        <h3>Por Tipo de Veículo</h3>
+                        <div id="relatorio-tipos"></div>
+                    </div>
+                    <div class="report-section">
+                        <h3>Arrecadação por Tipo</h3>
+                        <div id="relatorio-arrecadacao"></div>
+                    </div>
+                </div>
+                
+                <div class="section-buttons">
+                    <button onclick="atualizarRelatorios()" class="btn btn-blue">🔄 Atualizar</button>
+                    <button onclick="voltarMenu()" class="btn btn-gray">⬅ Voltar</button>
+                </div>
+            </div>
+
+            <!-- Veículos Ativos -->
+            <div id="veiculos" class="section hidden">
+                <h2>📋 Veículos no Estacionamento</h2>
+                <div id="lista-veiculos"></div>
+                <div class="section-buttons">
+                    <button type="button" onclick="voltarMenu()" class="btn btn-gray">⬅ Voltar</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Área de Mensagens -->
+        <div id="mensagens" class="mensagens hidden"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
