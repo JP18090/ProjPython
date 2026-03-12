@@ -46,7 +46,5 @@ Se um carro pequeno permaneceu por 4 horas e o pagamento for via PIX:
 https://github.com/user-attachments/assets/5d7d1731-72b5-4859-9fe3-4e79a31f95e9
 
 ## Melhorias Futuras
-- Implementação de um banco de dados para armazenar histórico de veículos.
-- Interface gráfica para facilitar a interação.
 - Opção de cadastramento automático da entrada via leitura de placas.
 
